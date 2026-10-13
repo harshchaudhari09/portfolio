@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 228 14% 5%;
+    --foreground: 210 40% 98%;
+    --card: 228 12% 9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 228 12% 9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 158 100% 48%;
+    --primary-foreground: 228 14% 5%;
+    --secondary: 224 12% 14%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 224 12% 14%;
+    --muted-foreground: 215 16% 60%;
+    --accent: 224 12% 14%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 228 10% 16%;
+    --input: 228 10% 16%;
+    --ring: 158 100% 48%;
+    --chart-1: 158 100% 48%;
+    --chart-2: 14 100% 61%;
+    --chart-3: 190 100% 50%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.75rem;
+
+    --canvas: #090a0f;
+    --surface: #11131a;
+    --elevated: #161928;
+    --mint: #00f5a0;
+    --flame: #ff5e36;
+    --icy: #00e5ff;
+    --line: rgba(255, 255, 255, 0.08);
+  }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply text-foreground;
+    background: var(--canvas);
+    color: #f8fafc;
+    font-family: "Outfit", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.font-display {
+  font-family: "Syne", sans-serif;
+}
+.mono {
+  font-family: "JetBrains Mono", monospace;
+}
+
+::selection {
+  background: rgba(0, 245, 160, 0.28);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #090a0f;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e2433;
+  border-radius: 8px;
+  border: 2px solid #090a0f;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2b3348;
+}
+
+/* film grain */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.glass {
+  background: rgba(17, 19, 26, 0.74);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--line);
+}
+
+.grid-bg {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 35%, transparent 100%);
+}
+
+.hero-glow {
+  background: radial-gradient(circle at 72% 18%, rgba(0, 245, 160, 0.12) 0%, rgba(9, 10, 15, 0) 62%),
+    radial-gradient(circle at 8% 80%, rgba(255, 94, 54, 0.07) 0%, rgba(9, 10, 15, 0) 55%);
+}
+
+.text-glow {
+  text-shadow: 0 0 32px rgba(0, 245, 160, 0.4);
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 52s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.cursor-blink {
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.float-y {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+.card-hover {
+  transition: border-color 0.35s ease, background-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+.card-hover:hover {
+  border-color: rgba(0, 245, 160, 0.35);
+  box-shadow: 0 18px 50px -24px rgba(0, 245, 160, 0.25);
+  transform: translateY(-3px);
+}
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+.btn-shine:hover::after {
+  left: 130%;
+}

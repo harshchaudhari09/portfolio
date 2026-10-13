@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Harsh Chaudhari — AI engineer for businesses. Chatbots, assistants and automations grounded in your own data: RAG, LangChain, LangGraph, FastAPI."
+    />
+    <meta name="theme-color" content="#090A0F" />
+    <meta property="og:title" content="Harsh Chaudhari — AI Engineer for Businesses" />
+    <meta
+      property="og:description"
+      content="AI systems that answer your customers, qualify your leads and save your team hours."
+    />
+    <meta property="og:type" content="website" />
+    <title>Harsh Chaudhari — AI Engineer for Businesses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Netlify detects forms at deploy time from static HTML; the React form posts to this one. -->
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="project_type" />
+      <input type="text" name="budget" />
+      <textarea name="message"></textarea>
+      <input name="bot-field" />
+    </form>
+    <noscript>You need to enable JavaScript to view this site.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
