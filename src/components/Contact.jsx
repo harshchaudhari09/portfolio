@@ -5,9 +5,9 @@ import { Reveal, SectionHead } from "@/components/Shared";
 
 const EMAIL = "dcharshchaudhari@gmail.com";
 
-// Submissions go to Netlify Forms (the hidden "contact" form in index.html).
-// Netlify emails each one to you once notifications are switched on in its dashboard.
-const encode = (data) => new URLSearchParams(data).toString();
+// Submissions go to Web3Forms, which emails each one to EMAIL. The access key only
+// identifies that inbox, so it's safe to ship in client code (that's how Web3Forms works).
+const WEB3FORMS_KEY = "b181ea3c-4cd2-4948-b596-91ef78d8e7eb";
 
 const PROJECT_TYPES = ["AI Customer Assistant", "Lead Capture & Qualification", "Custom AI Workflow / Agent", "Something else"];
 const BUDGETS = ["Under ₹50k", "₹50k – ₹2L", "₹2L+", "Not sure yet"];
@@ -30,12 +30,24 @@ export const Contact = () => {
     if (form.message.trim().length < 10) return toast.error("Tell me a bit more — at least 10 characters.");
     setSubmitting(true);
     try {
-      const res = await fetch("/", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode({ "form-name": "contact", ...form }),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `New project brief from ${form.name.trim()} — ${form.project_type}`,
+          from_name: "Portfolio contact form",
+          replyto: form.email,
+          name: form.name.trim(),
+          email: form.email.trim(),
+          project_type: form.project_type,
+          budget: form.budget,
+          message: form.message.trim(),
+          botcheck: form.botcheck,
+        }),
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) throw new Error(data.message || `HTTP ${res.status}`);
       toast.success("Thanks – I'll reply within 24 hours, IST.");
       setForm((f) => ({ ...f, name: "", email: "", message: "" }));
     } catch {
@@ -71,6 +83,17 @@ export const Contact = () => {
               onSubmit={submit}
               className="rounded-3xl border border-white/[0.08] bg-[#11131A] p-7 sm:p-10"
             >
+              {/* Honeypot: hidden from people, bots that tick it get rejected by Web3Forms */}
+              <input
+                type="checkbox"
+                name="botcheck"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+                checked={!!form.botcheck}
+                onChange={(e) => set("botcheck", e.target.checked)}
+              />
               <p className="mono text-xs uppercase tracking-[0.25em] text-slate-500">// project brief — step 1</p>
 
               <div className="mt-6 grid gap-6 sm:grid-cols-2">

@@ -12,7 +12,7 @@ npm run dev
 ## Deploy (Netlify, free)
 
 `netlify.toml` already sets the build command (`npm run build`) and output folder (`dist`).
-The contact form uses Netlify Forms: after the first deploy, open Netlify → Forms → enable form detection and add an email notification to dcharshchaudhari@gmail.com, then redeploy.
+The contact form posts to Web3Forms (`WEB3FORMS_KEY` in `src/components/Contact.jsx`), which emails each message to dcharshchaudhari@gmail.com. Every push to `main` redeploys the site on Netlify.
 
 ## Updating projects
 

@@ -24,15 +24,6 @@
     />
   </head>
   <body>
-    <!-- Netlify detects forms at deploy time from static HTML; the React form posts to this one. -->
-    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <input type="text" name="project_type" />
-      <input type="text" name="budget" />
-      <textarea name="message"></textarea>
-      <input name="bot-field" />
-    </form>
     <noscript>You need to enable JavaScript to view this site.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
